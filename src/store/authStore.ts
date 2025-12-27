@@ -1,7 +1,9 @@
 import { create } from 'zustand';
 import type { AuthState, User } from '@/types';
+import { ModulePermission } from '@/config/modules.config';
 
-// Mock users for different roles
+// Mock users for different roles with permissions
+// In production, permissions would come from the backend API
 const mockUsers: Record<string, User> = {
   'admin@college.com': {
     id: 1,
@@ -11,6 +13,40 @@ const mockUsers: Record<string, User> = {
     college_id: 1,
     college_name: 'Springfield College',
     phone: '+1234567890',
+    // Permissions are optional - if not provided, default role permissions will be used
+    // Backend would provide this array based on custom role configuration
+    permissions: [
+      ModulePermission.DASHBOARD_STUDENTS,
+      ModulePermission.DASHBOARD_TEACHERS,
+      ModulePermission.DASHBOARD_CLASSES,
+      ModulePermission.DASHBOARD_FEE_COLLECTION,
+      ModulePermission.DASHBOARD_ATTENDANCE,
+      ModulePermission.DASHBOARD_PERFORMANCE,
+      ModulePermission.DASHBOARD_ACTIVITIES,
+      ModulePermission.DASHBOARD_QUICK_ACTIONS,
+      ModulePermission.CORE_VIEW,
+      ModulePermission.CORE_MANAGE,
+      ModulePermission.STUDENTS_VIEW,
+      ModulePermission.STUDENTS_MANAGE,
+      ModulePermission.ACADEMIC_VIEW,
+      ModulePermission.ACADEMIC_MANAGE,
+      ModulePermission.ATTENDANCE_VIEW,
+      ModulePermission.ATTENDANCE_MANAGE,
+      ModulePermission.EXAMS_VIEW,
+      ModulePermission.EXAMS_MANAGE,
+      ModulePermission.FEES_VIEW,
+      ModulePermission.FEES_MANAGE,
+      ModulePermission.LIBRARY_VIEW,
+      ModulePermission.LIBRARY_MANAGE,
+      ModulePermission.HR_VIEW,
+      ModulePermission.HR_MANAGE,
+      ModulePermission.ASSIGNMENTS_VIEW,
+      ModulePermission.ASSIGNMENTS_MANAGE,
+      ModulePermission.COMMUNICATION_VIEW,
+      ModulePermission.COMMUNICATION_MANAGE,
+      ModulePermission.REPORTS_VIEW,
+      ModulePermission.REPORTS_GENERATE,
+    ],
   },
   'teacher@college.com': {
     id: 2,
@@ -24,6 +60,22 @@ const mockUsers: Record<string, User> = {
     subjects: ['Mathematics', 'Physics'],
     classes: ['10A', '10B', '11A'],
     phone: '+1234567891',
+    // Teacher permissions from backend
+    permissions: [
+      ModulePermission.DASHBOARD_MY_CLASSES,
+      ModulePermission.DASHBOARD_TOTAL_STUDENTS,
+      ModulePermission.DASHBOARD_PENDING_ASSIGNMENTS,
+      ModulePermission.DASHBOARD_TODAY_CLASSES,
+      ModulePermission.DASHBOARD_PENDING_TASKS,
+      ModulePermission.ATTENDANCE_VIEW,
+      ModulePermission.ATTENDANCE_MANAGE,
+      ModulePermission.ASSIGNMENTS_VIEW,
+      ModulePermission.ASSIGNMENTS_MANAGE,
+      ModulePermission.EXAMS_VIEW,
+      ModulePermission.ACADEMIC_VIEW,
+      ModulePermission.STUDENTS_VIEW,
+      ModulePermission.COMMUNICATION_VIEW,
+    ],
   },
   'student@college.com': {
     id: 3,
@@ -37,6 +89,22 @@ const mockUsers: Record<string, User> = {
     section: 'A',
     roll_number: '001',
     phone: '+1234567892',
+    // Student permissions from backend
+    permissions: [
+      ModulePermission.DASHBOARD_ATTENDANCE,
+      ModulePermission.DASHBOARD_ACADEMIC_PERFORMANCE,
+      ModulePermission.DASHBOARD_PENDING_TASKS,
+      ModulePermission.DASHBOARD_FEE_STATUS,
+      ModulePermission.DASHBOARD_TODAY_CLASSES,
+      ModulePermission.DASHBOARD_ASSIGNMENTS,
+      ModulePermission.DASHBOARD_NOTICES,
+      ModulePermission.ATTENDANCE_VIEW,
+      ModulePermission.ASSIGNMENTS_VIEW,
+      ModulePermission.EXAMS_VIEW,
+      ModulePermission.FEES_VIEW,
+      ModulePermission.LIBRARY_VIEW,
+      ModulePermission.COMMUNICATION_VIEW,
+    ],
   },
   'parent@college.com': {
     id: 4,
@@ -46,6 +114,19 @@ const mockUsers: Record<string, User> = {
     college_id: 1,
     college_name: 'Springfield College',
     phone: '+1234567893',
+    // Parent permissions from backend
+    permissions: [
+      ModulePermission.DASHBOARD_ATTENDANCE,
+      ModulePermission.DASHBOARD_ACADEMIC_PERFORMANCE,
+      ModulePermission.DASHBOARD_PENDING_TASKS,
+      ModulePermission.DASHBOARD_FEE_STATUS,
+      ModulePermission.DASHBOARD_TODAY_CLASSES,
+      ModulePermission.DASHBOARD_NOTICES,
+      ModulePermission.ATTENDANCE_VIEW,
+      ModulePermission.EXAMS_VIEW,
+      ModulePermission.FEES_VIEW,
+      ModulePermission.COMMUNICATION_VIEW,
+    ],
   },
 };
 

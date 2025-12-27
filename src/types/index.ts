@@ -10,6 +10,7 @@ export interface User {
   department?: string;
   phone?: string;
   avatar?: string;
+  permissions?: string[]; // Module permissions from backend
   // Teacher specific
   employee_id?: string;
   subjects?: string[];

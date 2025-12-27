@@ -12,7 +12,8 @@ export default function Sidebar() {
 
   if (!user) return null;
 
-  const sidebarGroups = getFilteredSidebarGroups(user.user_type);
+  // Use permission-based filtering if permissions are available, otherwise fall back to role-based
+  const sidebarGroups = getFilteredSidebarGroups(user.user_type, user.permissions);
   const portalTitle = getPortalTitle(user.user_type);
 
   const toggleGroup = (groupName: string) => {

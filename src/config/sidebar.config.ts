@@ -28,19 +28,22 @@ import {
   Wallet,
   type LucideIcon,
 } from 'lucide-react';
-import type { UserType } from '@/types';
+import type { UserType, User as UserData } from '@/types';
+import { ModulePermission } from './modules.config';
 
 export interface SidebarItem {
   name: string;
   href: string;
   icon: LucideIcon;
   roles: UserType[];
+  permission?: ModulePermission; // Optional permission - if provided, will check this instead of roles
 }
 
 export interface SidebarGroup {
   group: string;
   icon: LucideIcon;
   roles: UserType[];
+  permission?: ModulePermission; // Optional permission for the entire group
   items: SidebarItem[];
 }
 
@@ -446,14 +449,43 @@ export const sidebarConfig: SidebarGroup[] = [
   },
 ];
 
-export const getFilteredSidebarGroups = (userType: UserType): SidebarGroup[] => {
+/**
+ * Filter sidebar groups based on user permissions
+ * If permissions are provided in the user object, they take priority over role-based filtering
+ */
+export const getFilteredSidebarGroups = (userType: UserType, userPermissions?: string[]): SidebarGroup[] => {
+  // Helper function to check if user has access to an item
+  const hasAccess = (roles: UserType[], permission?: ModulePermission): boolean => {
+    // If no user permissions provided, fall back to role-based filtering
+    if (!userPermissions || userPermissions.length === 0) {
+      return roles.includes(userType);
+    }
+
+    // If permission is specified, check if user has that permission
+    if (permission) {
+      return userPermissions.includes(permission);
+    }
+
+    // If no permission specified, fall back to role check
+    return roles.includes(userType);
+  };
+
   return sidebarConfig
-    .filter((group) => group.roles.includes(userType))
+    .filter((group) => hasAccess(group.roles, group.permission))
     .map((group) => ({
       ...group,
-      items: group.items.filter((item) => item.roles.includes(userType)),
+      items: group.items.filter((item) => hasAccess(item.roles, item.permission)),
     }))
     .filter((group) => group.items.length > 0);
+};
+
+/**
+ * Filter sidebar groups based on user object
+ * This is a convenience function that extracts permissions from the user object
+ */
+export const getFilteredSidebarGroupsForUser = (user: UserData | null): SidebarGroup[] => {
+  if (!user) return [];
+  return getFilteredSidebarGroups(user.user_type, user.permissions);
 };
 
 export const getPortalTitle = (userType: UserType): string => {

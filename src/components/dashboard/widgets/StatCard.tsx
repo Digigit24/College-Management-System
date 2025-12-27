@@ -1,5 +1,7 @@
 import React from 'react';
-import { LucideIcon, TrendingUp, TrendingDown } from 'lucide-react';
+import { TrendingUp, TrendingDown } from 'lucide-react';
+
+type IconType = React.ComponentType<{ className?: string }>;
 
 interface StatCardProps {
   title: string;
@@ -7,7 +9,7 @@ interface StatCardProps {
   subtitle?: string;
   change?: string;
   trend?: 'up' | 'down' | 'neutral';
-  icon?: LucideIcon;
+  icon?: IconType;
 }
 
 export const StatCard: React.FC<StatCardProps> = ({

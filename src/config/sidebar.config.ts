@@ -26,22 +26,24 @@ import {
   UserPlus,
   ClockIcon,
   Wallet,
-  type LucideIcon,
 } from 'lucide-react';
 import type { UserType, User as UserModel } from '@/types';
 import { ModulePermission } from './modules.config';
 
+// Icon type
+type IconType = React.ComponentType<{ className?: string }>;
+
 export interface SidebarItem {
   name: string;
   href: string;
-  icon: LucideIcon;
+  icon: IconType;
   roles: UserType[];
   permission?: ModulePermission; // Optional permission - if provided, will check this instead of roles
 }
 
 export interface SidebarGroup {
   group: string;
-  icon: LucideIcon;
+  icon: IconType;
   roles: UserType[];
   permission?: ModulePermission; // Optional permission for the entire group
   items: SidebarItem[];

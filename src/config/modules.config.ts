@@ -12,8 +12,10 @@ import {
   CheckSquare,
   Clock,
   BarChart3,
-  type LucideIcon
 } from 'lucide-react';
+
+// Icon type
+type IconType = React.ComponentType<{ className?: string }>;
 
 // Module permissions enum
 export enum ModulePermission {
@@ -88,7 +90,7 @@ export interface DashboardModule {
   name: string;
   permission: ModulePermission;
   component: 'StatCard' | 'ActivityCard' | 'QuickActions' | 'ClassSchedule' | 'AssignmentList' | 'NoticeBoard' | 'PerformanceChart' | 'TaskList';
-  icon?: LucideIcon;
+  icon?: IconType;
   props?: Record<string, any>;
   gridSpan?: {
     sm?: number;

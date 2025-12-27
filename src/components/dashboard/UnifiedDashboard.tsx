@@ -108,21 +108,44 @@ export const UnifiedDashboard: React.FC = () => {
   }
 
   return (
-    <div className="p-6">
-      {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">{getPortalTitle()}</h1>
-        <p className="text-gray-600 mt-1">{getWelcomeMessage()}</p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      <div className="p-6 max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">{getPortalTitle()}</h1>
+          <p className="text-lg text-gray-600">{getWelcomeMessage()}</p>
+          <div className="mt-2 h-1 w-24 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"></div>
+        </div>
+
+        {/* Modules Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in duration-500">
+          {modules.map((module, index) => (
+            <div
+              key={module.id}
+              className={getGridSpan(module)}
+              style={{
+                animationDelay: `${index * 50}ms`,
+                animation: 'slideUp 0.5s ease-out forwards',
+              }}
+            >
+              {renderWidget(module)}
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* Modules Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {modules.map((module) => (
-          <div key={module.id} className={getGridSpan(module)}>
-            {renderWidget(module)}
-          </div>
-        ))}
-      </div>
+      <style>{`
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </div>
   );
 };

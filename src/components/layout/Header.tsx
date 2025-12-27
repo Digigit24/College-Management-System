@@ -16,7 +16,7 @@ export default function Header() {
     <header className="h-16 border-b border-border bg-card px-6 flex items-center justify-between sticky top-0 z-10">
       <div className="flex items-center gap-4">
         <h1 className="text-xl font-semibold">
-          {user?.college_name || 'School Management System'}
+          {user?.college_name || 'College Management System'}
         </h1>
       </div>
 

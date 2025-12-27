@@ -28,7 +28,7 @@ import {
   Wallet,
   type LucideIcon,
 } from 'lucide-react';
-import type { UserType, User as UserData } from '@/types';
+import type { UserType, User as UserModel } from '@/types';
 import { ModulePermission } from './modules.config';
 
 export interface SidebarItem {
@@ -483,7 +483,7 @@ export const getFilteredSidebarGroups = (userType: UserType, userPermissions?: s
  * Filter sidebar groups based on user object
  * This is a convenience function that extracts permissions from the user object
  */
-export const getFilteredSidebarGroupsForUser = (user: UserData | null): SidebarGroup[] => {
+export const getFilteredSidebarGroupsForUser = (user: UserModel | null): SidebarGroup[] => {
   if (!user) return [];
   return getFilteredSidebarGroups(user.user_type, user.permissions);
 };

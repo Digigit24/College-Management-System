@@ -32,7 +32,7 @@ export default function NoticesPage() {
     {
       id: '4',
       title: 'Holiday Notice',
-      content: 'School will remain closed on January 1, 2026 for New Year celebration.',
+      content: 'College will remain closed on January 1, 2026 for New Year celebration.',
       date: '2025-12-20',
       type: 'holiday',
       author: 'Admin',
@@ -59,7 +59,7 @@ export default function NoticesPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold">Notices & Announcements</h1>
-          <p className="text-muted-foreground mt-1">View all school notices and updates</p>
+          <p className="text-muted-foreground mt-1">View all college notices and updates</p>
         </div>
         <Button>
           <Plus className="w-4 h-4 mr-2" />

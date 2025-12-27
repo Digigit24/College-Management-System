@@ -7,6 +7,13 @@ import MainLayout from '@/components/layout/MainLayout';
 const Login = lazy(() => import('@/pages/Login'));
 const Dashboard = lazy(() => import('@/pages/Dashboard'));
 
+// Core module
+const CollegesPage = lazy(() => import('@/pages/core/CollegesPage'));
+const AcademicYearsPage = lazy(() => import('@/pages/core/AcademicYearsPage'));
+
+// Accounts module
+const RolesPage = lazy(() => import('@/pages/accounts/RolesPage'));
+
 // Exams
 const ExamsPage = lazy(() => import('@/pages/exams/ExamsPage'));
 const CreateTest = lazy(() => import('@/pages/exams/CreateTest'));
@@ -83,11 +90,19 @@ const router = createBrowserRouter([
       // Core
       {
         path: 'core/colleges',
-        element: <PlaceholderPage title="Colleges" />,
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <CollegesPage />
+          </Suspense>
+        ),
       },
       {
         path: 'core/academic-years',
-        element: <PlaceholderPage title="Academic Years" />,
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <AcademicYearsPage />
+          </Suspense>
+        ),
       },
       {
         path: 'core/sessions',
@@ -108,7 +123,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'accounts/roles',
-        element: <PlaceholderPage title="Roles" />,
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <RolesPage />
+          </Suspense>
+        ),
       },
       {
         path: 'accounts/departments',

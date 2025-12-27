@@ -20,7 +20,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   children,
 }) => {
   return (
-    <div className="bg-white border-b border-gray-200 px-6 py-6 sticky top-16 z-10 shadow-sm">
+    <div className="mb-8">
       <div className="flex items-center justify-between">
         <div className="flex-1">
           <h1 className="text-3xl font-bold text-gray-900">{title}</h1>
@@ -39,6 +39,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
         )}
         {children}
       </div>
+      <div className="mt-3 h-1 w-24 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"></div>
     </div>
   );
 };

@@ -1,11 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
+import { useTheme } from '@/contexts/ThemeContext';
 import { Button } from '@/components/ui/button';
-import { Bell, LogOut, Settings, User } from 'lucide-react';
+import { Bell, LogOut, Settings, User, Moon, Sun } from 'lucide-react';
 
 export default function Header() {
   const navigate = useNavigate();
   const { user, logout } = useAuthStore();
+  const { theme, toggleTheme } = useTheme();
 
   const handleLogout = () => {
     logout();
@@ -13,7 +15,7 @@ export default function Header() {
   };
 
   return (
-    <header className="h-16 border-b border-border bg-card px-6 flex items-center justify-between sticky top-0 z-10">
+    <header className="h-16 border-b border-border bg-card px-6 flex items-center justify-between sticky top-0 z-10 backdrop-blur-sm bg-opacity-90">
       <div className="flex items-center gap-4">
         <h1 className="text-xl font-semibold">
           {user?.college_name || 'College Management System'}
@@ -21,10 +23,25 @@ export default function Header() {
       </div>
 
       <div className="flex items-center gap-2">
+        {/* Theme Toggle */}
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={toggleTheme}
+          className="relative hover:bg-accent"
+          title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+        >
+          {theme === 'light' ? (
+            <Moon className="w-5 h-5 text-slate-700 transition-transform hover:rotate-12" />
+          ) : (
+            <Sun className="w-5 h-5 text-yellow-500 transition-transform hover:rotate-12" />
+          )}
+        </Button>
+
         {/* Notifications */}
         <Button variant="ghost" size="icon" className="relative">
           <Bell className="w-5 h-5" />
-          <span className="absolute top-1 right-1 w-2 h-2 bg-destructive rounded-full" />
+          <span className="absolute top-1 right-1 w-2 h-2 bg-destructive rounded-full animate-pulse" />
         </Button>
 
         {/* Settings */}

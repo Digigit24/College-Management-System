@@ -10,9 +10,14 @@ const Dashboard = lazy(() => import('@/pages/Dashboard'));
 // Core module
 const CollegesPage = lazy(() => import('@/pages/core/CollegesPage'));
 const AcademicYearsPage = lazy(() => import('@/pages/core/AcademicYearsPage'));
+const SessionsPage = lazy(() => import('@/pages/core/SessionsPage'));
 
 // Accounts module
 const RolesPage = lazy(() => import('@/pages/accounts/RolesPage'));
+const UsersPage = lazy(() => import('@/pages/accounts/UsersPage'));
+
+// Academic module
+const ClassesPage = lazy(() => import('@/pages/academic/ClassesPage'));
 
 // Exams
 const ExamsPage = lazy(() => import('@/pages/exams/ExamsPage'));
@@ -106,7 +111,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'core/sessions',
-        element: <PlaceholderPage title="Sessions" />,
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <SessionsPage />
+          </Suspense>
+        ),
       },
       {
         path: 'core/holidays',
@@ -119,7 +128,11 @@ const router = createBrowserRouter([
       // Accounts
       {
         path: 'accounts/users',
-        element: <PlaceholderPage title="Users" />,
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <UsersPage />
+          </Suspense>
+        ),
       },
       {
         path: 'accounts/roles',
@@ -140,7 +153,11 @@ const router = createBrowserRouter([
       // Academic
       {
         path: 'academic/classes',
-        element: <PlaceholderPage title="Classes" />,
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <ClassesPage />
+          </Suspense>
+        ),
       },
       {
         path: 'academic/subjects',

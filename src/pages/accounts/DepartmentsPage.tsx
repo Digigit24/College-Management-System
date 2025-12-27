@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import type { Action, Column } from '@/components/common/DataTable';
+import { DataTable } from '@/components/common/DataTable';
 import { PageHeader } from '@/components/common/PageHeader';
-import { DataTable, Column, Action } from '@/components/common/DataTable';
-import { Building2, Edit, Trash2, Users } from 'lucide-react';
+import { useState } from 'react';
+
 import { Badge } from '@/components/ui/badge';
+import { Building2, Edit, Trash2 } from 'lucide-react';
 
 interface Department {
   id: string;

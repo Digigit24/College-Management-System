@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import type { Action, Column } from '@/components/common/DataTable';
+import { DataTable } from '@/components/common/DataTable';
 import { PageHeader } from '@/components/common/PageHeader';
-import { DataTable, Column, Action } from '@/components/common/DataTable';
 import { PermissionGate } from '@/components/common/PermissionGate';
-import { ModulePermission } from '@/config/modules.config';
-import { GraduationCap, Edit, Trash2, Users, BookOpen } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { ModulePermission } from '@/config/modules.config';
+import { BookOpen, Edit, GraduationCap, Trash2, Users } from 'lucide-react';
+import { useState } from 'react';
 
 interface Class {
   id: string;

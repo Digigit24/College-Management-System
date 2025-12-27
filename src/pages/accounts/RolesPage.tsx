@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import type { Action, Column } from '@/components/common/DataTable';
+import { DataTable } from '@/components/common/DataTable';
 import { PageHeader } from '@/components/common/PageHeader';
-import { DataTable, Column, Action } from '@/components/common/DataTable';
-import { PermissionGate, PermissionDisplay } from '@/components/common/PermissionGate';
-import { ModulePermission } from '@/config/modules.config';
-import { Shield, Edit, Trash2, Users, Key } from 'lucide-react';
+import { PermissionGate } from '@/components/common/PermissionGate';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { ModulePermission } from '@/config/modules.config';
+import { Edit, Key, Shield, Trash2, Users } from 'lucide-react';
+import { useState } from 'react';
 
 interface Role {
   id: string;
@@ -189,12 +190,10 @@ export default function RolesPage() {
       accessor: 'name',
       cell: (value, row) => (
         <div className="flex items-center">
-          <div className={`flex-shrink-0 h-10 w-10 ${
-            row.type === 'system' ? 'bg-indigo-100' : 'bg-purple-100'
-          } rounded-lg flex items-center justify-center`}>
-            <Shield className={`h-5 w-5 ${
-              row.type === 'system' ? 'text-indigo-600' : 'text-purple-600'
-            }`} />
+          <div className={`flex-shrink-0 h-10 w-10 ${row.type === 'system' ? 'bg-indigo-100' : 'bg-purple-100'
+            } rounded-lg flex items-center justify-center`}>
+            <Shield className={`h-5 w-5 ${row.type === 'system' ? 'text-indigo-600' : 'text-purple-600'
+              }`} />
           </div>
           <div className="ml-3">
             <div className="flex items-center gap-2">
@@ -282,135 +281,138 @@ export default function RolesPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
-      <PageHeader
-        title="Roles & Permissions"
-        description="Manage system and custom roles with granular permissions"
-        action={{
-          label: 'Create Custom Role',
-          onClick: handleAddRole,
-          icon: Shield,
-        }}
-      />
-
       <div className="p-6 max-w-7xl mx-auto">
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Total Roles</p>
-                <p className="text-3xl font-bold text-gray-900 mt-2">{roles.length}</p>
+
+        <PageHeader
+          title="Roles & Permissions"
+          description="Manage system and custom roles with granular permissions"
+          action={{
+            label: 'Create Custom Role',
+            onClick: handleAddRole,
+            icon: Shield,
+          }}
+        />
+
+        <div className="p-6 max-w-7xl mx-auto">
+          {/* Stats Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">Total Roles</p>
+                  <p className="text-3xl font-bold text-gray-900 mt-2">{roles.length}</p>
+                </div>
+                <div className="p-3 bg-indigo-50 rounded-lg">
+                  <Shield className="h-8 w-8 text-indigo-600" />
+                </div>
               </div>
-              <div className="p-3 bg-indigo-50 rounded-lg">
-                <Shield className="h-8 w-8 text-indigo-600" />
+            </div>
+
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">System Roles</p>
+                  <p className="text-3xl font-bold text-indigo-600 mt-2">
+                    {systemRoles.length}
+                  </p>
+                </div>
+                <div className="p-3 bg-blue-50 rounded-lg">
+                  <Shield className="h-8 w-8 text-blue-600" />
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">Custom Roles</p>
+                  <p className="text-3xl font-bold text-purple-600 mt-2">
+                    {customRoles.length}
+                  </p>
+                </div>
+                <div className="p-3 bg-purple-50 rounded-lg">
+                  <Shield className="h-8 w-8 text-purple-600" />
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">Total Users</p>
+                  <p className="text-3xl font-bold text-green-600 mt-2">
+                    {roles.reduce((sum, r) => sum + r.userCount, 0).toLocaleString()}
+                  </p>
+                </div>
+                <div className="p-3 bg-green-50 rounded-lg">
+                  <Users className="h-8 w-8 text-green-600" />
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">System Roles</p>
-                <p className="text-3xl font-bold text-indigo-600 mt-2">
-                  {systemRoles.length}
-                </p>
-              </div>
-              <div className="p-3 bg-blue-50 rounded-lg">
-                <Shield className="h-8 w-8 text-blue-600" />
-              </div>
-            </div>
-          </div>
+          {/* Tabs for System and Custom Roles */}
+          <Tabs defaultValue="all" className="w-full">
+            <TabsList className="mb-6">
+              <TabsTrigger value="all">All Roles ({roles.length})</TabsTrigger>
+              <TabsTrigger value="system">System Roles ({systemRoles.length})</TabsTrigger>
+              <TabsTrigger value="custom">Custom Roles ({customRoles.length})</TabsTrigger>
+            </TabsList>
 
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Custom Roles</p>
-                <p className="text-3xl font-bold text-purple-600 mt-2">
-                  {customRoles.length}
-                </p>
-              </div>
-              <div className="p-3 bg-purple-50 rounded-lg">
-                <Shield className="h-8 w-8 text-purple-600" />
-              </div>
-            </div>
-          </div>
+            <TabsContent value="all">
+              <PermissionGate permission={ModulePermission.CORE_VIEW}>
+                <DataTable
+                  data={roles}
+                  columns={columns}
+                  actions={actions}
+                  isLoading={isLoading}
+                  emptyMessage="No roles found"
+                />
+              </PermissionGate>
+            </TabsContent>
 
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Total Users</p>
-                <p className="text-3xl font-bold text-green-600 mt-2">
-                  {roles.reduce((sum, r) => sum + r.userCount, 0).toLocaleString()}
-                </p>
-              </div>
-              <div className="p-3 bg-green-50 rounded-lg">
-                <Users className="h-8 w-8 text-green-600" />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Tabs for System and Custom Roles */}
-        <Tabs defaultValue="all" className="w-full">
-          <TabsList className="mb-6">
-            <TabsTrigger value="all">All Roles ({roles.length})</TabsTrigger>
-            <TabsTrigger value="system">System Roles ({systemRoles.length})</TabsTrigger>
-            <TabsTrigger value="custom">Custom Roles ({customRoles.length})</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="all">
-            <PermissionGate permission={ModulePermission.CORE_VIEW}>
+            <TabsContent value="system">
               <DataTable
-                data={roles}
+                data={systemRoles}
                 columns={columns}
                 actions={actions}
                 isLoading={isLoading}
-                emptyMessage="No roles found"
+                emptyMessage="No system roles found"
               />
-            </PermissionGate>
-          </TabsContent>
+            </TabsContent>
 
-          <TabsContent value="system">
-            <DataTable
-              data={systemRoles}
-              columns={columns}
-              actions={actions}
-              isLoading={isLoading}
-              emptyMessage="No system roles found"
-            />
-          </TabsContent>
+            <TabsContent value="custom">
+              <DataTable
+                data={customRoles}
+                columns={columns}
+                actions={actions}
+                isLoading={isLoading}
+                emptyMessage="No custom roles found. Create a custom role to get started."
+              />
+            </TabsContent>
+          </Tabs>
 
-          <TabsContent value="custom">
-            <DataTable
-              data={customRoles}
-              columns={columns}
-              actions={actions}
-              isLoading={isLoading}
-              emptyMessage="No custom roles found. Create a custom role to get started."
-            />
-          </TabsContent>
-        </Tabs>
-
-        {/* Permission Display Section */}
-        {selectedRole && (
-          <div className="mt-6 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              {selectedRole.name} - Permissions ({selectedRole.permissions.length})
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-              {selectedRole.permissions.map((permission) => (
-                <div
-                  key={permission}
-                  className="px-3 py-2 bg-indigo-50 text-indigo-700 text-sm rounded-md border border-indigo-200 flex items-center"
-                >
-                  <Key className="h-3 w-3 mr-2" />
-                  {permission}
-                </div>
-              ))}
+          {/* Permission Display Section */}
+          {selectedRole && (
+            <div className="mt-6 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                {selectedRole.name} - Permissions ({selectedRole.permissions.length})
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                {selectedRole.permissions.map((permission) => (
+                  <div
+                    key={permission}
+                    className="px-3 py-2 bg-indigo-50 text-indigo-700 text-sm rounded-md border border-indigo-200 flex items-center"
+                  >
+                    <Key className="h-3 w-3 mr-2" />
+                    {permission}
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
-    </div>
-  );
+      </div>
+      );
 }

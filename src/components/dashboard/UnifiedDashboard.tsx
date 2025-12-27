@@ -1,15 +1,17 @@
 import React, { useMemo } from 'react';
+import type { DashboardModule } from '../../config/modules.config';
+import { getModulesForPermissions } from '../../config/modules.config';
+
 import { useAuthStore } from '../../store/authStore';
 import { getUserPermissions } from '../../utils/permissions';
-import { getModulesForPermissions, DashboardModule } from '../../config/modules.config';
 import {
-  StatCard,
   ActivityCard,
-  QuickActions,
-  ClassSchedule,
   AssignmentList,
+  ClassSchedule,
   NoticeBoard,
   PerformanceChart,
+  QuickActions,
+  StatCard,
   TaskList,
 } from './widgets';
 

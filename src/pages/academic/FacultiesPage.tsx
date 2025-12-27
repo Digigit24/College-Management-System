@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import type { Action, Column } from '@/components/common/DataTable';
+import { DataTable } from '@/components/common/DataTable';
 import { PageHeader } from '@/components/common/PageHeader';
-import { DataTable, Column, Action } from '@/components/common/DataTable';
-import { Users, Edit, Trash2, Mail, Phone } from 'lucide-react';
+import { useState } from 'react';
+
 import { Badge } from '@/components/ui/badge';
+import { Edit, Mail, Phone, Trash2, Users } from 'lucide-react';
 
 interface Faculty {
   id: string;

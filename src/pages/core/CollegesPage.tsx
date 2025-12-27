@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import type { Action, Column } from '@/components/common/DataTable';
+import { DataTable } from '@/components/common/DataTable';
 import { PageHeader } from '@/components/common/PageHeader';
-import { DataTable, Column, Action } from '@/components/common/DataTable';
+import { useState } from 'react';
+
 import { PermissionGate } from '@/components/common/PermissionGate';
-import { ModulePermission } from '@/config/modules.config';
-import { Building2, MapPin, Phone, Mail, Edit, Trash2 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { ModulePermission } from '@/config/modules.config';
+import { Building2, Edit, Mail, MapPin, Phone, Trash2 } from 'lucide-react';
 
 interface College {
   id: string;

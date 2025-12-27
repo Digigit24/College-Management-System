@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import type {Column, Action } from '@/components/common/DataTable';
+import {  DataTable } from '@/components/common/DataTable';
 import { PageHeader } from '@/components/common/PageHeader';
-import { DataTable, Column, Action } from '@/components/common/DataTable';
+import { useState } from 'react';
+
 import { PermissionGate } from '@/components/common/PermissionGate';
-import { ModulePermission } from '@/config/modules.config';
-import { Calendar, Edit, Trash2, CheckCircle2 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { ModulePermission } from '@/config/modules.config';
+import { Calendar, CheckCircle2, Edit, Trash2 } from 'lucide-react';
 
 interface AcademicYear {
   id: string;

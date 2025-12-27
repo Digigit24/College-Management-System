@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import type { Action, Column } from '@/components/common/DataTable';
+import { DataTable } from '@/components/common/DataTable';
 import { PageHeader } from '@/components/common/PageHeader';
-import { DataTable, Column, Action } from '@/components/common/DataTable';
-import { BookOpen, Edit, Trash2 } from 'lucide-react';
+import { useState } from 'react';
+
 import { Badge } from '@/components/ui/badge';
+import { BookOpen, Edit, Trash2 } from 'lucide-react';
 
 interface Subject {
   id: string;

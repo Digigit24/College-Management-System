@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { PageHeader } from '@/components/common/PageHeader';
-import { DataTable, Column, Action } from '@/components/common/DataTable';
+import { DataTable } from '@/components/common/DataTable';
+import type { Action, Column } from '@/components/common/DataTable';
+
 import { PermissionGate } from '@/components/common/PermissionGate';
 import { ModulePermission } from '@/config/modules.config';
 import { Users as UsersIcon, Edit, Trash2, Shield, Mail, Phone } from 'lucide-react';

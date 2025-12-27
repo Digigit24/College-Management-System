@@ -1,5 +1,5 @@
 import { ModulePermission, defaultRolePermissions } from '../config/modules.config';
-import { User, UserType } from '../types';
+import type { User, UserType } from '../types';
 
 /**
  * Get user permissions from user object or default role permissions

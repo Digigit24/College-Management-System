@@ -23,15 +23,15 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
     <div className="mb-8">
       <div className="flex items-center justify-between">
         <div className="flex-1">
-          <h1 className="text-3xl font-bold text-gray-900">{title}</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{title}</h1>
           {description && (
-            <p className="mt-2 text-sm text-gray-600">{description}</p>
+            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">{description}</p>
           )}
         </div>
         {action && (
           <Button
             onClick={action.onClick}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg hover:shadow-xl transition-all"
+            className="bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white shadow-lg hover:shadow-xl transition-all"
           >
             {action.icon ? <action.icon className="w-4 h-4 mr-2" /> : <Plus className="w-4 h-4 mr-2" />}
             {action.label}

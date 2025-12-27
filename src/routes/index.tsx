@@ -11,13 +11,22 @@ const Dashboard = lazy(() => import('@/pages/Dashboard'));
 const CollegesPage = lazy(() => import('@/pages/core/CollegesPage'));
 const AcademicYearsPage = lazy(() => import('@/pages/core/AcademicYearsPage'));
 const SessionsPage = lazy(() => import('@/pages/core/SessionsPage'));
+const HolidaysPage = lazy(() => import('@/pages/core/HolidaysPage'));
+const SettingsPage = lazy(() => import('@/pages/core/SettingsPage'));
 
 // Accounts module
 const RolesPage = lazy(() => import('@/pages/accounts/RolesPage'));
 const UsersPage = lazy(() => import('@/pages/accounts/UsersPage'));
+const DepartmentsPage = lazy(() => import('@/pages/accounts/DepartmentsPage'));
 
 // Academic module
 const ClassesPage = lazy(() => import('@/pages/academic/ClassesPage'));
+const SubjectsPage = lazy(() => import('@/pages/academic/SubjectsPage'));
+const TimetablesPage = lazy(() => import('@/pages/academic/TimetablesPage'));
+const FacultiesPage = lazy(() => import('@/pages/academic/FacultiesPage'));
+
+// HR module
+const StaffPage = lazy(() => import('@/pages/hr/StaffPage'));
 
 // Exams
 const ExamsPage = lazy(() => import('@/pages/exams/ExamsPage'));
@@ -119,10 +128,25 @@ const router = createBrowserRouter([
       },
       {
         path: 'core/holidays',
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <HolidaysPage />
+          </Suspense>
+        ),
+      },
+      {
         element: <PlaceholderPage title="Holidays" />,
       },
       {
         path: 'core/settings',
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <SettingsPage />
+          </Suspense>
+        ),
+      },
+      // Accounts
+      {
         element: <PlaceholderPage title="Settings" />,
       },
       // Accounts
@@ -144,6 +168,13 @@ const router = createBrowserRouter([
       },
       {
         path: 'accounts/departments',
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <DepartmentsPage />
+          </Suspense>
+        ),
+      },
+      {
         element: <PlaceholderPage title="Departments" />,
       },
       {
@@ -161,14 +192,35 @@ const router = createBrowserRouter([
       },
       {
         path: 'academic/subjects',
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <SubjectsPage />
+          </Suspense>
+        ),
+      },
+      {
         element: <PlaceholderPage title="Subjects" />,
       },
       {
         path: 'academic/timetables',
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <TimetablesPage />
+          </Suspense>
+        ),
+      },
+      {
         element: <PlaceholderPage title="Timetables" />,
       },
       {
         path: 'academic/faculties',
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <FacultiesPage />
+          </Suspense>
+        ),
+      },
+      {
         element: <PlaceholderPage title="Faculties" />,
       },
       {
